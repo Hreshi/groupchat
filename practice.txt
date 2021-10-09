@@ -1,5 +1,2 @@
-repositry created vy hrishikesh
-
-
-and i am here trying to fork 
-it is just prcrice
+hello here i am doing prctice of git,
+hope we  will upload our project as early as possible
