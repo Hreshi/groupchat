@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>groupchat</title>
+    <link rel="stylesheet" type="text/css" href="/css/chat.css">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
+<body>
+    <div id="username-page">
+        <input type="text" id="username" placeholder="enter name">
+        <br>
+        <button id="continue-btn">Continue</button>
+    </div>
+    <div id="chat-page" hidden="true">
+        <div>
+            <ul id="message-list">
+        
+            </ul>
+        </div>
+        <div>
+            <input type="text" id="message-input">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/js/chat.js"></script>
+</html>
