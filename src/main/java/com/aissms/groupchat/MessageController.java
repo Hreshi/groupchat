@@ -19,4 +19,8 @@ public class MessageController {
         return "socket";
     }
 
+    @GetMapping("/chat")
+    public String messaging() {
+        return "chat";
+    }
 }
