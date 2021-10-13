@@ -15,12 +15,12 @@ public class MessageController {
     }
 
     @GetMapping("/socket")
-    public String messaging() {
+    public String testMessaging() {
         return "socket";
     }
 
     @GetMapping("/chat")
-    public String messaging() {
+    public String chatMessaging() {
         return "chat";
     }
 }

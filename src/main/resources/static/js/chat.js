@@ -1,23 +1,39 @@
-let url = location.host == 'localhost' ?
-'ws://localhost:8081/ws' : location.host == 'javascript.local' ?
-`ws://javascript.local/article/websocket/chat/ws` : // dev integration with local site
-`wss://javascript.info/article/websocket/chat/ws`; // prod integration with javascript.info
-let socket=new WebSocket(url);
+let usernameInput = document.getElementById('username')
+let continueBtn = document.getElementById('continue-btn')
+let chatDiv = document.getElementById('chat-page')
+let nameDiv = document.getElementById('username-page')
+let sendBtn = document.getElementById('send-btn')
+let messageList = document.getElementById('message-list')
+let messageInput = document.getElementById('message-input')
+let stompClient = null
+let username = null
 
-document.forms.publish.onsubmit=function() {
-    let outgoingMessage=this.messageinp.value;
-    socket.send(outgoingMessage);
-    this.messageinp.value="";
-    return false;
-};
 
-socket.onmessage=function (event) {
-    let incomingMessage=event.data;
-    showMessage(incomingMessage);
+continueBtn.addEventListener('click', function () {
+    username = usernameInput.value
+    make_connection()
+    nameDiv.hidden = true
+    chatDiv.hidden = false
+})
+
+sendBtn.addEventListener('click', function () {
+    stompClient.send('/app/message', {}, JSON.stringify({'name':username, 'message':messageInput.value}))
+})
+
+function make_connection() {
+    let socket = new SockJS('/message-system')
+    stompClient = Stomp.over(socket)
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/chat/messages', function (response) {
+            const res = JSON.parse(response.body)   
+            appendMessage(res.name, res.message)
+        })
+    })
 }
-socket.onclose=event=> console.log(`closed ${event.code}`);
-function showMessage(messageinp) {
-    let messageElem=document.createElement('div');
-    messageElem.textContent=messageinp;
-    document.getElementById('container').prepend(messageElem);
+
+function appendMessage(name, message) {
+    messageInput.value = ''
+    let messageEle = document.createElement('li')
+    messageEle.innerHTML = '<p>' + name + ' : ' + message + '</p>'
+    messageList.append(messageEle)
 }
