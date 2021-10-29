@@ -10,8 +10,8 @@ import java.sql.*;
 
 @Controller
 public class Auth {
-	private static String getUserQuery = "select * from cred where username=\"%s\";";
-	private static String setUserQuery = "insert into cred (username, password) values (\"%s\", \"%s\");";
+	private static String getUserQuery = "select * from logsystem where username=\"%s\";";
+	private static String setUserQuery = "insert into logsystem (username, password) values (\"%s\", \"%s\");";
 
 	@GetMapping("/")
 	public String signUpTemp() {

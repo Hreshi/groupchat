@@ -6,12 +6,14 @@ import javax.annotation.PostConstruct;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 @Component
 public class DBService {
-	static final String dbURL = "jdbc:mariadb://localhost:3306/logsystem";
-	static final String username = "hreshi";
-	static final String password = "Laxmi.8149";
+	static final String dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
+	static final String username = System.getenv("DB_USERNAME");
+	static final String password = System.getenv("DB_PASSWORD");
+	
 	private static Connection connection;
 
 	@PostConstruct
@@ -21,7 +23,7 @@ public class DBService {
 	}
 
 	public static Statement getStatement() throws Exception{
-		return connection.createStatement();
+		return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 	}
 
 }
