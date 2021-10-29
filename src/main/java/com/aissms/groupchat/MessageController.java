@@ -9,23 +9,22 @@ import org.springframework.stereotype.Controller;
 
 import java.util.Map;
 
+import com.aissms.groupchat.auth.Auth;
+
 @Controller
 public class MessageController {
 
     @MessageMapping("/message")
     @SendTo("/chat/messages")
     public Message sendMessage(Message message) throws Exception {
+        if(message != null && message.getMessage()!=null) {
+            Auth auth = new Auth();
+            auth.validateUser(message.getUsername(), message.getPassword());
+            message.clearPass();
+        } else {
+            message = null;
+        }
         return message;
-    }
-
-    @GetMapping("/socket")
-    public String testMessaging() {
-        return "socket";
-    }
-
-    @GetMapping("/chat")
-    public String chatMessaging() {
-        return "chat";
     }
 
 }

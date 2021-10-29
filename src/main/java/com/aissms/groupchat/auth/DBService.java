@@ -11,7 +11,7 @@ import java.sql.Statement;
 public class DBService {
 	static final String dbURL = "jdbc:mariadb://localhost:3306/logsystem";
 	static final String username = "hreshi";
-	static final String password = "put your password here";
+	static final String password = "Laxmi.8149";
 	private static Connection connection;
 
 	@PostConstruct

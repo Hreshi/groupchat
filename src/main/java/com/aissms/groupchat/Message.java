@@ -1,17 +1,25 @@
 package com.aissms.groupchat;
 
 public class Message{
-	private String name;
+	private String username;
+	private String password;
 	private String message;
 	
-	Message(String message, String name) {
+	Message(String username, String password, String message) {
+		this.username = username;
+		this.password = password;
 		this.message = message;
-		this.name = name;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public String getPassword() {
+		return password;
 	}
 	public String getMessage() {
 		return message;
 	}
-	public String getName() {
-		return name;
+	public void clearPass() {
+		password = "abcd";
 	}
 }

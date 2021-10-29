@@ -18,3 +18,10 @@ changeBtn.addEventListener('click', function () {
         authForm.action = "/signup"
     }
 })
+
+submitBtn.addEventListener('click', function () {
+    sessionStorage.setItem('username', document.getElementById('username').value)
+    sessionStorage.setItem('password', document.getElementById('password').value)
+    console.log(sessionStorage.username + Window.localStorage.password)
+
+})
