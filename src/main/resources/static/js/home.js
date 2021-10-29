@@ -22,6 +22,4 @@ changeBtn.addEventListener('click', function () {
 submitBtn.addEventListener('click', function () {
     sessionStorage.setItem('username', document.getElementById('username').value)
     sessionStorage.setItem('password', document.getElementById('password').value)
-    console.log(sessionStorage.username + Window.localStorage.password)
-
 })
