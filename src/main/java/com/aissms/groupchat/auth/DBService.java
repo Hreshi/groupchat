@@ -10,10 +10,12 @@ import java.sql.ResultSet;
 
 @Component
 public class DBService {
-	static final String dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
-	static final String username = System.getenv("DB_USERNAME");
-	static final String password = System.getenv("DB_PASSWORD");
-	
+	// static final String dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
+	// static final String username = System.getenv("DB_USERNAME");
+	// static final String password = System.getenv("DB_PASSWORD");
+	static final String dbURL = "jdbc:mysql://remotemysql.com:3306/dzav9P51Fr";
+	static final String username = "dzav9P51Fr";
+	static final String password = "XA8Nxo4OMG";
 	private static Connection connection;
 
 	@PostConstruct

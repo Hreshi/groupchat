@@ -32,7 +32,10 @@ public class Auth {
 		Statement statement = DBService.getStatement();
 		if(user != null && pass != null && validString(user) && validString(pass)) {
 			ResultSet res = statement.executeQuery(String.format(Auth.getUserQuery, user));
-			return res.first() && pass.equals(res.getString("password"));
+			boolean result = res.first() && pass.equals(res.getString("password"));
+			res.close();
+			// statement.close();
+			return result;
 		}
 		return false;
 	}
@@ -41,15 +44,20 @@ public class Auth {
 		if(user != null && pass != null && validString(user) && validString(pass)) {
 			if(!isUserAlreadyRegistered(user)) {
 				statement.executeUpdate(String.format(Auth.setUserQuery, user, pass));
+				// statement.close();
 				return true;
 			}
 		}
+		// statement.close();
 		return false;
 	}
 	private boolean isUserAlreadyRegistered(String user) throws Exception {
 		Statement statement = DBService.getStatement();
 		ResultSet res = statement.executeQuery(String.format(Auth.getUserQuery, user));
-		return res.first();
+		boolean result = res.first();
+		res.close();
+		// statement.close();
+		return result;
 	}
 	private boolean validString(String str) {
 		return str != null && str.length() >=8 && str.length() <= 20;
