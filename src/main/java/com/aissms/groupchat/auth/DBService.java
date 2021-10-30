@@ -25,7 +25,7 @@ public class DBService {
 	}
 
 	public static Statement getStatement() throws Exception{
-		return connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		return connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 	}
 
 }
