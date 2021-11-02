@@ -10,8 +10,8 @@ import java.sql.*;
 
 @Controller
 public class Auth {
-	private static String getUserQuery = "select * from logsystem where username=\"%s\";";
-	private static String setUserQuery = "insert into logsystem (username, password) values (\"%s\", \"%s\");";
+	private static String getUserQuery = "select * from cred where username=\"%s\";";
+	private static String setUserQuery = "insert into cred (username, password) values (\"%s\", \"%s\");";
 
 	@GetMapping("/")
 	public String signUpTemp() {
@@ -29,34 +29,35 @@ public class Auth {
 		return success ? "chat" : "home";
 	}
 	public boolean validateUser(String user, String pass) throws Exception {
-		Statement statement = DBService.getStatement();
+		DBService service = new DBService();
+		Statement statement = service.getStatement();
 		if(user != null && pass != null && validString(user) && validString(pass)) {
 			ResultSet res = statement.executeQuery(String.format(Auth.getUserQuery, user));
 			boolean result = res.first() && pass.equals(res.getString("password"));
-			res.close();
-			// statement.close();
+			service.close(statement, res);
 			return result;
 		}
 		return false;
 	}
 	public boolean registerUser(String user, String pass) throws Exception {
-		Statement statement = DBService.getStatement();
+		DBService service = new DBService();
+		Statement statement = service.getStatement();
 		if(user != null && pass != null && validString(user) && validString(pass)) {
 			if(!isUserAlreadyRegistered(user)) {
 				statement.executeUpdate(String.format(Auth.setUserQuery, user, pass));
-				// statement.close();
+				service.close(statement, null);
 				return true;
 			}
 		}
-		// statement.close();
+		service.close(statement, null);
 		return false;
 	}
 	private boolean isUserAlreadyRegistered(String user) throws Exception {
-		Statement statement = DBService.getStatement();
+		DBService service = new DBService();
+		Statement statement = service.getStatement();
 		ResultSet res = statement.executeQuery(String.format(Auth.getUserQuery, user));
 		boolean result = res.first();
-		res.close();
-		// statement.close();
+		service.close(statement, res);
 		return result;
 	}
 	private boolean validString(String str) {

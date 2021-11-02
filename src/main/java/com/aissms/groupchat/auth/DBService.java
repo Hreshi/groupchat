@@ -8,25 +8,31 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-@Component
 public class DBService {
-	// static final String dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
-	// static final String username = System.getenv("DB_USERNAME");
-	// static final String password = System.getenv("DB_PASSWORD");
-	// above code is for deploying on heroku and below for testing
-	static final String dbURL = "jdbc:mysql://localhost:3306/dbname";
-	static final String username = "user";
-	static final String password = "password";
-	private static Connection connection;
 
-	@PostConstruct
-	public void initDatabase() throws Exception{
-		DBService.connection = DriverManager.getConnection(DBService.dbURL, DBService.username, DBService.password);
-		// create table if not exists
+	static String dbURL = "jdbc:mysql://localhost:3306/dbname";
+	static String username = "user";
+	static String password = "password";
+	private Connection connection;
+	{
+		if(System.getenv("DB_SERVER") != null) {
+			dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
+			username = System.getenv("DB_USERNAME");
+			password = System.getenv("DB_PASSWORD");
+		} else {
+			System.out.println("Connected to localhost!");
+	}
+	
+
+	public Statement getStatement() throws Exception{
+		connection = DriverManager.getConnection(DBService.dbURL, DBService.username, DBService.password);
+		return connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 	}
 
-	public static Statement getStatement() throws Exception{
-		return connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+	public void close(Statement stmt, ResultSet res) throws Exception{
+		connection.close();
+		stmt.close();
+		if(res != null) res.close();
 	}
 
 }
