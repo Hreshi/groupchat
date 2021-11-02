@@ -21,6 +21,7 @@ public class DBService {
 			password = System.getenv("DB_PASSWORD");
 		} else {
 			System.out.println("Connected to localhost!");
+		}
 	}
 	
 
