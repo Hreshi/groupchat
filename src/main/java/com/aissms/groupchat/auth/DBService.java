@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class DBService {
+
 	static String dbURL = "jdbc:mysql://localhost:3306/dbname";
 	static String username = "user";
 	static String password = "password";
@@ -20,9 +21,8 @@ public class DBService {
 			password = System.getenv("DB_PASSWORD");
 		} else {
 			System.out.println("Connected to localhost!");
-		}
 	}
-
+	
 
 	public Statement getStatement() throws Exception{
 		connection = DriverManager.getConnection(DBService.dbURL, DBService.username, DBService.password);
