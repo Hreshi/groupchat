@@ -14,17 +14,18 @@ public class DBService {
 	static String username = "user";
 	static String password = "password";
 	private Connection connection;
-	{
+	
+	@PostConstruct
+	public void databaseConfig() {
 		if(System.getenv("DB_SERVER") != null) {
 			dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
 			username = System.getenv("DB_USERNAME");
 			password = System.getenv("DB_PASSWORD");
 		} else {
-			System.out.println("Connected to localhost!");
+			System.out.println("working on non heroku env!");
 		}
 	}
 	
-
 	public Statement getStatement() throws Exception{
 		connection = DriverManager.getConnection(DBService.dbURL, DBService.username, DBService.password);
 		return connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
