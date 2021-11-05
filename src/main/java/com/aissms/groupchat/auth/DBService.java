@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+@Component
 public class DBService {
 
 	static String dbURL = "jdbc:mysql://localhost:3306/dbname";
