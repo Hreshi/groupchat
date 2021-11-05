@@ -18,9 +18,9 @@ public class DBService {
 	@PostConstruct
 	public void databaseConfig() {
 		if(System.getenv("DB_SERVER") != null) {
-			dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
-			username = System.getenv("DB_USERNAME");
-			password = System.getenv("DB_PASSWORD");
+			DBService.dbURL = "jdbc:mysql://"+System.getenv("DB_SERVER") + ":3306/" + System.getenv("DB_NAME");
+			DBService.username = System.getenv("DB_USERNAME");
+			DBService.password = System.getenv("DB_PASSWORD");
 		} else {
 			System.out.println("working on non heroku env!");
 		}
