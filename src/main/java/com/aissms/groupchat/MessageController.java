@@ -19,8 +19,11 @@ public class MessageController {
     public Message sendMessage(Message message) throws Exception {
         if(message != null && message.getMessage()!=null && !message.getMessage().equals("")) {
             Auth auth = new Auth();
-            auth.validateUser(message.getUsername(), message.getPassword());
-            message.clearPass();
+            if(!auth.validateUser(message.getUsername(), message.getPassword())) {
+                message = null;
+            } else {
+                message.clearPass();
+            }
         } else {
             message = null;
         }
