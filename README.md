@@ -1,5 +1,5 @@
 # groupchat
-Group chat application made with spring and react to learn
+Group chat application made with spring to learn
 
 # how to build
 run ./mvnw spring-boot:run on linux and mvnw spring-boot:run on windows
