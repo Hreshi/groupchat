@@ -2,7 +2,7 @@
 Group chat application made with spring to learn
 
 # how to build
-run ./mvnw spring-boot:run on linux and mvnw spring-boot:run on windows
+run ./mvnw spring-boot:run on linux and .\mvnw spring-boot:run on windows
 
 # contribute
 fork this repo 
